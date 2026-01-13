@@ -1,2 +1,0 @@
-# zagazigdentalcart
-dentalcart
