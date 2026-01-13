@@ -1,0 +1,146 @@
+baseURL = "https://USERNAME.github.io/REPO/"
+languageCode = "en"
+title = "Dental Supplies Order"
+disableKinds = ["taxonomy", "term", "RSS", "sitemap", "robotsTXT", "404"]
+
+[params]
+whatsapp_phone = "201271476215"
+default_language = "en"
+supported_languages = ["en", "ar"]
+
+[params.message]
+greeting_en = "Hello,"
+greeting_ar = "مرحباً،"
+intro_en = "I would like to place the following dental supplies order:"
+intro_ar = "أود طلب مستلزمات الأسنان التالية:"
+clinic_prompt_en = "Clinic name (optional)"
+clinic_prompt_ar = "اسم العيادة (اختياري)"
+footer_en = "Thank you."
+footer_ar = "شكراً."
+
+[params.i18n.en]
+brand = "Dental Cart"
+headline = "Order dental supplies easily — no registration — via WhatsApp"
+value_fast = "Fast"
+value_focus = "Dentist-focused"
+value_no_account = "No account required"
+cta_start = "Start Ordering"
+nav_catalog = "Products"
+nav_review = "Review"
+section_catalog_title = "Browse products"
+search_placeholder = "Search products"
+category_all = "All"
+add_to_order = "Add to Order"
+added = "Added"
+cart_title = "Your Order"
+cart_empty = "Your order is empty."
+qty = "Qty"
+note = "Note"
+remove = "Remove"
+continue_shopping = "Continue shopping"
+review_title = "Order Review"
+review_hint = "Your order will be sent exactly as shown via WhatsApp."
+clinic_name_label = "Clinic name (optional)"
+send_whatsapp = "Send Order via WhatsApp"
+back = "Back"
+
+[params.i18n.ar]
+brand = "سلة الأسنان"
+headline = "اطلب مستلزمات الأسنان بسهولة — بدون تسجيل — عبر واتساب"
+value_fast = "سريع"
+value_focus = "مخصص لأطباء الأسنان"
+value_no_account = "بدون حساب"
+cta_start = "ابدأ الطلب"
+nav_catalog = "المنتجات"
+nav_review = "مراجعة"
+section_catalog_title = "تصفح المنتجات"
+search_placeholder = "ابحث عن منتج"
+category_all = "الكل"
+add_to_order = "أضف للطلب"
+added = "تمت الإضافة"
+cart_title = "طلبك"
+cart_empty = "طلبك فارغ."
+qty = "الكمية"
+note = "ملاحظة"
+remove = "حذف"
+continue_shopping = "متابعة التسوق"
+review_title = "مراجعة الطلب"
+review_hint = "سيتم إرسال طلبك كما هو تماماً عبر واتساب."
+clinic_name_label = "اسم العيادة (اختياري)"
+send_whatsapp = "إرسال الطلب عبر واتساب"
+back = "رجوع"
+
+# Product catalog
+# Image values are data URIs to keep the repo fully self-contained.
+
+[[params.products]]
+id = "diag-001"
+category = "Diagnostic"
+name_en = "Mouth Mirror No. 5"
+name_ar = "مرآة فموية رقم 5"
+description_en = "Front-surface mirror for clear intraoral visibility during examination."
+description_ar = "مرآة أمامية لوضوح الرؤية داخل الفم أثناء الفحص."
+image = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNjQwIDQwMCI+PHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFQUYyRkYiLz48Y2lyY2xlIGN4PSIyNjAiIGN5PSIxNzAiIHI9Ijg4IiBmaWxsPSIjRkZGIiBzdHJva2U9IiMyNjQ2NTMiIHN0cm9rZS13aWR0aD0iMTYiLz48cmVjdCB4PSIzMzAiIHk9IjIxMCIgd2lkdGg9IjE5MCIgaGVpZ2h0PSIyNiIgcng9IjEzIiBmaWxsPSIjMjY0NjUzIi8+PHRleHQgeD0iMzIiIHk9IjM2OCIgc3R5bGU9ImZvbnQtZmFtaWx5OiBBcmlhbCwgc2Fucy1zZXJpZjtmb250LXNpemU6MjRweDtmaWxsOiMyNjQ2NTMiPkRpYWdub3N0aWM8L3RleHQ+PC9zdmc+"
+
+[[params.products]]
+id = "diag-002"
+category = "Diagnostic"
+name_en = "Explorer Probe"
+name_ar = "مسبار استكشاف"
+description_en = "Fine-tip explorer for caries detection and margin evaluation."
+description_ar = "مسبار دقيق لاكتشاف التسوس وتقييم الحواف."
+image = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNjQwIDQwMCI+PHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFQUYyRkYiLz48cGF0aCBkPSJNMTEwIDI2MCBDMjAwIDIxMCAyODAgMTg0IDM2MCAxNjggQzQ0MCAxNTIgNTA0IDEzMCA1NDUgOTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzI2NDY1MyIgc3Ryb2tlLXdpZHRoPSIxNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHJlY3QgeD0iOTAiIHk9IjI1MCIgd2lkdGg9IjE3MCIgaGVpZ2h0PSIzNiIgcng9IjE4IiBmaWxsPSIjMjY0NjUzIi8+PHRleHQgeD0iMzIiIHk9IjM2OCIgc3R5bGU9ImZvbnQtZmFtaWx5OiBBcmlhbCwgc2Fucy1zZXJpZjtmb250LXNpemU6MjRweDtmaWxsOiMyNjQ2NTMiPkRpYWdub3N0aWM8L3RleHQ+PC9zdmc+"
+
+[[params.products]]
+id = "rest-001"
+category = "Restorative"
+name_en = "Universal Composite (A2)"
+name_ar = "كومبوزيت يونيفرسال (A2)"
+description_en = "Light-cure composite with excellent handling for anterior/posterior restorations."
+description_ar = "كومبوزيت ضوئي سهل التشكيل للترميمات الأمامية والخلفية."
+image = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNjQwIDQwMCI+PHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFOUZBRjAiLz48cmVjdCB4PSIxNjAiIHk9IjExMCIgd2lkdGg9IjMyMCIgaGVpZ2h0PSIxNzAiIHJ4PSIyMCIgZmlsbD0iI0ZGRiIgc3Ryb2tlPSIjMUYyOTM3IiBzdHJva2Utd2lkdGg9IjEyIi8+PHJlY3QgeD0iMjAwIiB5PSIxNjAiIHdpZHRoPSIyNDAiIGhlaWdodD0iNjAiIHJ4PSIxMiIgZmlsbD0iIzFGMjkzNyIvPjx0ZXh0IHg9IjMyIiB5PSIzNjgiIHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7Zm9udC1zaXplOjI0cHg7ZmlsbDojMUYyOTM3Ij5SZXN0b3JhdGl2ZTwvdGV4dD48L3N2Zz4="
+
+[[params.products]]
+id = "rest-002"
+category = "Restorative"
+name_en = "Etching Gel 37%"
+name_ar = "جل تخريش ٣٧٪"
+description_en = "Controlled-viscosity phosphoric acid gel for enamel/dentin etching."
+description_ar = "جل حمض فوسفوري بقوام متوازن لتخريش المينا والعاج."
+image = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNjQwIDQwMCI+PHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFOUZBRjAiLz48cGF0aCBkPSJNMjQwIDEwMCBoMTYwIHYyNjAgYzAgMjAtMTYgMzYtMzYgMzZoLTg4Yy0yMCAwLTM2LTE2LTM2LTM2VjEwMCBaIiBmaWxsPSIjRkZGIiBzdHJva2U9IiMxRjI5MzciIHN0cm9rZS13aWR0aD0iMTIiLz48cmVjdCB4PSIyNjAiIHk9IjE1MCIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI1MCIgcng9IjEwIiBmaWxsPSIjMUYyOTM3Ii8+PHRleHQgeD0iMzIiIHk9IjM2OCIgc3R5bGU9ImZvbnQtZmFtaWx5OiBBcmlhbCwgc2Fucy1zZXJpZjtmb250LXNpemU6MjRweDtmaWxsOiMxRjI5MzciPlJlc3RvcmF0aXZlPC90ZXh0Pjwvc3ZnPg=="
+
+[[params.products]]
+id = "ster-001"
+category = "Sterilization"
+name_en = "Sterilization Pouch (200 pcs)"
+name_ar = "أكياس تعقيم (٢٠٠ قطعة)"
+description_en = "Medical-grade self-seal pouches with process indicators for autoclave cycles."
+description_ar = "أكياس تعقيم طبية ذاتية الإغلاق مع مؤشرات عملية لدورات الأوتوكلاف."
+image = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNjQwIDQwMCI+PHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNGRkY3RUQiLz48cmVjdCB4PSIxNzAiIHk9IjkwIiB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIyMCIgcng9IjE2IiBmaWxsPSIjRkZGIiBzdHJva2U9IiM0MzM4Q0EiIHN0cm9rZS13aWR0aD0iMTIiLz48cmVjdCB4PSIxODAiIHk9IjExMCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSI3MCIgcng9IjEyIiBmaWxsPSIjNDMzOENBIiBvcGFjaXR5PSIwLjE1Ii8+PHRleHQgeD0iMzIiIHk9IjM2OCIgc3R5bGU9ImZvbnQtZmFtaWx5OiBBcmlhbCwgc2Fucy1zZXJpZjtmb250LXNpemU6MjRweDtmaWxsOiM0MzM4Q0EiPlN0ZXJpbGl6YXRpb248L3RleHQ+PC9zdmc+"
+
+[[params.products]]
+id = "ster-002"
+category = "Sterilization"
+name_en = "Surface Disinfectant (1L)"
+name_ar = "مطهر أسطح (١ لتر)"
+description_en = "Fast-acting disinfectant for clinical surfaces; suitable for daily use."
+description_ar = "مطهر سريع المفعول لأسطح العيادة مناسب للاستخدام اليومي."
+image = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNjQwIDQwMCI+PHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNGRkY3RUQiLz48cmVjdCB4PSIyNjAiIHk9IjkwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjI2MCIgcng9IjIwIiBmaWxsPSIjRkZGIiBzdHJva2U9IiM0MzM4Q0EiIHN0cm9rZS13aWR0aD0iMTIiLz48cmVjdCB4PSIyNzQiIHk9IjE0MCIgd2lkdGg9IjkyIiBoZWlnaHQ9IjYwIiByeD0iMTIiIGZpbGw9IiM0MzM4Q0EiIG9wYWNpdHk9IjAuMTUiLz48Y2lyY2xlIGN4PSIzMjAiIGN5PSIyODAiIHI9IjQwIiBmaWxsPSIjNDMzOENBIiBvcGFjaXR5PSIwLjI1Ii8+PHRleHQgeD0iMzIiIHk9IjM2OCIgc3R5bGU9ImZvbnQtZmFtaWx5OiBBcmlhbCwgc2Fucy1zZXJpZjtmb250LXNpemU6MjRweDtmaWxsOiM0MzM4Q0EiPlN0ZXJpbGl6YXRpb248L3RleHQ+PC9zdmc+"
+
+[[params.products]]
+id = "photo-001"
+category = "Photography"
+name_en = "Cheek Retractors (Pair)"
+name_ar = "مبعدات خد (زوج)"
+description_en = "Comfortable retractors for consistent intraoral photography and isolation."
+description_ar = "مبعدات مريحة لتصوير فموي ثابت وعزل أفضل."
+image = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNjQwIDQwMCI+PHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNGRkVGRjEiLz48cGF0aCBkPSJNMjA1IDE5MCBjLTYwIDAtOTUgMzgtOTUgODQgMCA0NiAzNSA4NCA5NSA4NCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjODAwMDIwIiBzdHJva2Utd2lkdGg9IjE2IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNNDM1IDE5MCBjNjAgMCA5NSAzOCA5NSA4NCAwIDQ2LTM1IDg0LTk1IDg0IiBmaWxsPSJub25lIiBzdHJva2U9IiM4MDAwMjAiIHN0cm9rZS13aWR0aD0iMTYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjx0ZXh0IHg9IjMyIiB5PSIzNjgiIHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7Zm9udC1zaXplOjI0cHg7ZmlsbDojODAwMDIwIj5QaG90b2dyYXBoeTwvdGV4dD48L3N2Zz4="
+
+[[params.products]]
+id = "photo-002"
+category = "Photography"
+name_en = "Intraoral Mirrors (Set)"
+name_ar = "مرايا تصوير داخل الفم (مجموعة)"
+description_en = "Rhodium-coated mirrors for crisp reflection and color accuracy in photos."
+description_ar = "مرايا مطلية بالروديوم لانعكاس واضح ودقة لون في الصور."
+image = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNjQwIDQwMCI+PHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNGRkVGRjEiLz48Y2lyY2xlIGN4PSIzMDAiIGN5PSIxNzAiIHI9Ijg4IiBmaWxsPSIjRkZGIiBzdHJva2U9IiM4MDAwMjAiIHN0cm9rZS13aWR0aD0iMTYiLz48cGF0aCBkPSJNMzk0IDI0MiBsOTQgNjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzgwMDAyMCIgc3Ryb2tlLXdpZHRoPSIxNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHRleHQgeD0iMzIiIHk9IjM2OCIgc3R5bGU9ImZvbnQtZmFtaWx5OiBBcmlhbCwgc2Fucy1zZXJpZjtmb250LXNpemU6MjRweDtmaWxsOiM4MDAwMjAiPlBob3RvZ3JhcGh5PC90ZXh0Pjwvc3ZnPg=="

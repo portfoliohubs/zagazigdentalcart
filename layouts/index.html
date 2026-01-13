@@ -1,0 +1,908 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>Dental Cart</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:#0f1b33;
+      --card:#121f3b;
+      --muted:#97a5c0;
+      --text:#e9efff;
+      --brand:#4dd4ac;
+      --brand2:#7aa8ff;
+      --danger:#ff5a7a;
+      --shadow: 0 14px 40px rgba(0,0,0,.35);
+      --radius: 16px;
+      --radius2: 12px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      background: radial-gradient(1200px 700px at 15% 20%, rgba(122,168,255,.18), transparent 55%),
+                  radial-gradient(900px 600px at 80% 10%, rgba(77,212,172,.16), transparent 50%),
+                  linear-gradient(180deg, #070c16, #0b1220 55%, #070c16);
+      color:var(--text);
+    }
+
+    button, input, textarea{font:inherit}
+
+    .container{max-width:1120px;margin:0 auto;padding:24px}
+
+    header{
+      position:sticky; top:0; z-index:20;
+      backdrop-filter: blur(10px);
+      background: rgba(7,12,22,.55);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px;max-width:1120px;margin:0 auto}
+
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
+    .logo{width:36px;height:36px;border-radius:12px;background: linear-gradient(135deg, rgba(77,212,172,.9), rgba(122,168,255,.85));position:relative;box-shadow: 0 10px 28px rgba(77,212,172,.18)}
+    .logo:before{content:"";position:absolute;inset:9px;border-radius:10px;border:2px solid rgba(11,18,32,.85)}
+
+    .top-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+
+    .pill{border:1px solid rgba(255,255,255,.10);background: rgba(18,31,59,.75);color:var(--text);border-radius:999px;padding:10px 12px;display:flex;align-items:center;gap:8px;box-shadow: 0 8px 22px rgba(0,0,0,.25)}
+    .pill button{border:0;background:transparent;color:inherit;cursor:pointer;padding:6px 10px;border-radius:999px;font-weight:800}
+    .pill button[aria-pressed="true"]{background: rgba(255,255,255,.10)}
+
+    .nav-btn{border:1px solid rgba(255,255,255,.10);background: rgba(18,31,59,.55);color:var(--text);padding:10px 12px;border-radius: 999px;cursor:pointer;font-weight:800}
+    .nav-btn:hover{border-color: rgba(255,255,255,.22)}
+
+    .hero{margin-top:18px;background: linear-gradient(135deg, rgba(18,31,59,.72), rgba(15,27,51,.55));border:1px solid rgba(255,255,255,.08);border-radius: var(--radius);box-shadow: var(--shadow);padding:28px;overflow:hidden;position:relative}
+    .hero:after{content:"";position:absolute;inset:-40px -60px auto auto;width:420px;height:420px;border-radius:50%;background: radial-gradient(circle at 30% 30%, rgba(77,212,172,.45), transparent 60%),radial-gradient(circle at 70% 70%, rgba(122,168,255,.35), transparent 55%);filter: blur(10px);opacity:.75;pointer-events:none}
+
+    .hero-grid{display:grid;grid-template-columns: 1.3fr .7fr;gap:18px;align-items:center}
+    @media (max-width: 900px){.hero-grid{grid-template-columns:1fr}}
+
+    h1{margin:0 0 12px;font-size: clamp(28px, 4vw, 46px);line-height:1.08;letter-spacing:-.5px}
+    p{margin:0}
+
+    .value-points{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px}
+    .chip{background: rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.10);padding:8px 10px;border-radius:999px;color:var(--text);font-weight:700;font-size: 13px}
+
+    .cta-row{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+
+    .btn{border:0;cursor:pointer;padding:12px 14px;border-radius: 12px;font-weight:900;letter-spacing:.2px;display:inline-flex;align-items:center;justify-content:center;gap:10px;transition: transform .08s ease, filter .12s ease;user-select:none}
+    .btn:active{transform: translateY(1px)}
+    .btn-primary{background: linear-gradient(135deg, rgba(77,212,172,.95), rgba(122,168,255,.90)); color:#061021}
+    .btn-ghost{background: rgba(255,255,255,.06); color:var(--text); border:1px solid rgba(255,255,255,.10)}
+    .btn[disabled]{opacity:.55;cursor:not-allowed}
+
+    .section{display:none;margin-top:18px}
+    .section.active{display:block}
+
+    .toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-top:18px}
+
+    .field{display:flex;gap:10px;align-items:center;background: rgba(18,31,59,.65);border:1px solid rgba(255,255,255,.10);border-radius: 14px;padding: 10px 12px;min-width: 240px}
+    .field input{width: 100%;border:0;outline:none;background:transparent;color:var(--text)}
+
+    .seg{display:flex;gap:8px;flex-wrap:wrap}
+    .seg button{border:1px solid rgba(255,255,255,.10);background: rgba(18,31,59,.55);color:var(--text);padding:9px 12px;border-radius: 999px;cursor:pointer;font-weight:900;font-size: 13px}
+    .seg button[aria-selected="true"]{border-color: rgba(77,212,172,.55); background: rgba(77,212,172,.12)}
+
+    .grid{margin-top:16px;display:grid;grid-template-columns: repeat(3, 1fr);gap:14px}
+    @media (max-width: 1000px){.grid{grid-template-columns: repeat(2, 1fr)}}
+    @media (max-width: 640px){.grid{grid-template-columns: 1fr}}
+
+    .card{background: rgba(18,31,59,.65);border:1px solid rgba(255,255,255,.08);border-radius: var(--radius2);overflow:hidden;box-shadow: 0 10px 30px rgba(0,0,0,.28);display:flex;flex-direction:column;min-height: 320px}
+    .card img{width:100%;height:160px;object-fit:cover;background: rgba(255,255,255,.04)}
+    .card-body{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1}
+    .card-title{font-weight:950;letter-spacing:-.2px}
+    .card-desc{color:var(--muted);font-size: 13.5px;line-height:1.35}
+    .card-foot{margin-top:auto;display:flex;gap:10px;align-items:center;justify-content:space-between}
+
+    .tag{font-size:12px;color: rgba(233,239,255,.9);background: rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10);border-radius:999px;padding:6px 10px;white-space:nowrap}
+
+    .fab{position:fixed;right:18px;bottom:18px;z-index:30;width:58px;height:58px;border-radius: 20px;background: linear-gradient(135deg, rgba(77,212,172,.92), rgba(122,168,255,.88));color:#061021;border:0;cursor:pointer;box-shadow: 0 16px 42px rgba(0,0,0,.40)}
+    .fab .count{position:absolute;top:-8px;right:-8px;min-width:24px;height:24px;border-radius:999px;background: #061021;color: var(--text);border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-weight:950;padding:0 7px;font-size: 12px}
+
+    .drawer-backdrop{position:fixed; inset:0;background: rgba(0,0,0,.55);display:none;z-index:40}
+    .drawer-backdrop.show{display:block}
+
+    .drawer{position:fixed;top:0;right:0;height:100%;width: min(520px, 100%);background: rgba(11,18,32,.95);border-left: 1px solid rgba(255,255,255,.10);box-shadow: -18px 0 55px rgba(0,0,0,.45);transform: translateX(110%);transition: transform .18s ease;z-index:45;display:flex;flex-direction:column}
+    .drawer.show{transform: translateX(0)}
+
+    .drawer-head{padding:16px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(255,255,255,.08);background: rgba(18,31,59,.55)}
+    .drawer-title{font-weight:950;letter-spacing:-.2px}
+
+    .icon-btn{border:1px solid rgba(255,255,255,.12);background: rgba(255,255,255,.06);color:var(--text);border-radius:12px;padding:10px 12px;cursor:pointer;font-weight:900}
+
+    .drawer-body{padding:14px 16px;overflow:auto;flex:1}
+
+    .cart-item{border:1px solid rgba(255,255,255,.08);background: rgba(18,31,59,.55);border-radius: 14px;padding:12px;margin-bottom:12px;display:grid;grid-template-columns: 60px 1fr;gap:12px}
+    .cart-item img{width:60px;height:60px;border-radius:12px;object-fit:cover;background: rgba(255,255,255,.04)}
+
+    .cart-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+
+    .qty-control{display:flex;align-items:center;gap:8px}
+    .qty-control button{width:34px;height:34px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background: rgba(255,255,255,.06);color:var(--text);cursor:pointer;font-weight:950}
+    .qty-control .qty{min-width:24px;text-align:center;font-weight:950}
+
+    textarea{width:100%;min-height: 54px;resize: vertical;border-radius: 12px;border:1px solid rgba(255,255,255,.12);background: rgba(11,18,32,.65);color: var(--text);padding:10px;outline:none}
+
+    .muted{color:var(--muted)}
+
+    .drawer-foot{padding:14px 16px;border-top:1px solid rgba(255,255,255,.08);background: rgba(18,31,59,.55);display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+
+    .review-panel{margin-top:18px;background: rgba(18,31,59,.55);border:1px solid rgba(255,255,255,.10);border-radius: var(--radius);box-shadow: var(--shadow);padding:18px}
+
+    .review-list{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+    .review-item{border:1px solid rgba(255,255,255,.08);background: rgba(11,18,32,.55);border-radius: 14px;padding:12px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+    .review-item .left{display:flex;flex-direction:column;gap:4px}
+    .review-item .name{font-weight:950}
+    .review-item .sub{color:var(--muted);font-size: 13px;line-height:1.35}
+
+    .rtl{direction:rtl}
+    .rtl .header-inner{flex-direction: row-reverse}
+    .rtl .top-actions{flex-direction: row-reverse}
+    .rtl .drawer{right:auto;left:0;border-left:0;border-right:1px solid rgba(255,255,255,.10);box-shadow: 18px 0 55px rgba(0,0,0,.45)}
+    .rtl .fab{right:auto;left:18px}
+
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="brand" aria-label="Brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div id="brandText">Dental Cart</div>
+      </div>
+
+      <div class="top-actions">
+        <button class="nav-btn" id="navCatalog" type="button"></button>
+        <button class="nav-btn" id="navReview" type="button"></button>
+
+        <div class="pill" role="group" aria-label="Language">
+          <button id="langEn" type="button" aria-pressed="true">EN</button>
+          <button id="langAr" type="button" aria-pressed="false">AR</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="app" aria-live="polite">
+    <section class="section active" id="sectionLanding">
+      <div class="hero">
+        <div class="hero-grid">
+          <div>
+            <h1 id="headline">Order dental supplies easily — no registration — via WhatsApp</h1>
+            <div class="value-points">
+              <div class="chip" id="vpFast">Fast</div>
+              <div class="chip" id="vpFocus">Dentist-focused</div>
+              <div class="chip" id="vpNoAccount">No account required</div>
+            </div>
+            <div class="cta-row">
+              <button class="btn btn-primary" id="btnStart" type="button"></button>
+              <button class="btn btn-ghost" id="btnGoReview" type="button"></button>
+            </div>
+            <p class="muted" style="margin-top:12px" id="landingHint"></p>
+          </div>
+
+          <div class="review-panel">
+            <div style="font-weight:950;letter-spacing:-.2px" id="flowTitle">Workflow</div>
+            <div class="muted" style="margin-top:8px;line-height:1.45" id="flowText">
+              Browse by clinical category, add items, add notes per product, then send the order via WhatsApp.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sectionCatalog">
+      <div class="toolbar">
+        <div>
+          <div style="font-weight:950;font-size:20px;letter-spacing:-.2px" id="catalogTitle">Browse products</div>
+          <div class="muted" style="margin-top:6px" id="catalogSubtitle"></div>
+        </div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:flex-end">
+          <div class="field" style="min-width:min(420px, 80vw)">
+            <span aria-hidden="true">🔎</span>
+            <input id="searchInput" type="search" />
+          </div>
+
+          <div class="seg" id="categorySeg" role="tablist" aria-label="Categories"></div>
+        </div>
+      </div>
+
+      <div class="grid" id="productGrid"></div>
+    </section>
+
+    <section class="section" id="sectionReview">
+      <div class="review-panel">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <div>
+            <div style="font-weight:950;font-size:20px;letter-spacing:-.2px" id="reviewTitle">Order Review</div>
+            <div class="muted" style="margin-top:6px" id="reviewHint">Your order will be sent exactly as shown via WhatsApp.</div>
+          </div>
+          <button class="btn btn-ghost" id="btnBackToCatalog" type="button"></button>
+        </div>
+
+        <div style="margin-top:14px">
+          <label class="muted" for="clinicName" id="clinicLabel" style="display:block;margin-bottom:8px"></label>
+          <div class="field" style="min-width:unset">
+            <span aria-hidden="true">🏥</span>
+            <input id="clinicName" type="text" />
+          </div>
+        </div>
+
+        <div class="review-list" id="reviewList"></div>
+
+        <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+          <div class="muted" id="reviewCount"></div>
+          <button class="btn btn-primary" id="btnSendWhatsApp" type="button"></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button class="fab" id="cartFab" type="button" aria-label="Open cart">
+    <span aria-hidden="true">🛒</span>
+    <span class="count" id="cartCount">0</span>
+  </button>
+
+  <div class="drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
+  <aside class="drawer" id="drawer" aria-label="Cart">
+    <div class="drawer-head">
+      <div class="drawer-title" id="cartTitle">Your Order</div>
+      <button class="icon-btn" id="btnCloseDrawer" type="button">✕</button>
+    </div>
+    <div class="drawer-body" id="cartBody"></div>
+    <div class="drawer-foot">
+      <div class="muted" id="cartFootHint"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-ghost" id="btnContinue" type="button"></button>
+        <button class="btn btn-primary" id="btnGoToReview" type="button"></button>
+      </div>
+    </div>
+  </aside>
+
+  <script>
+    (function(){
+      const STORAGE_KEY = "dental_cart_v1";
+      const LANG_KEY = "dental_lang_v1";
+      const CLINIC_KEY = "dental_clinic_v1";
+
+      const el = (id) => document.getElementById(id);
+
+      const state = {
+        config: null,
+        lang: "en",
+        category: "All",
+        search: "",
+        cart: {},
+        productsById: new Map()
+      };
+
+      function safeText(s){
+        return (s ?? "").toString();
+      }
+
+      function parseToml(tomlText){
+        // Minimal TOML parser for this project structure.
+        const root = {};
+        let ctx = root;
+        let ctxPath = [];
+
+        const ensurePath = (path) => {
+          let o = root;
+          for (const p of path) {
+            if (!Object.prototype.hasOwnProperty.call(o, p) || typeof o[p] !== "object" || o[p] === null) o[p] = {};
+            o = o[p];
+          }
+          return o;
+        };
+
+        const ensureArrayTable = (path) => {
+          const parentPath = path.slice(0, -1);
+          const key = path[path.length - 1];
+          const parent = ensurePath(parentPath);
+          if (!Array.isArray(parent[key])) parent[key] = [];
+          const obj = {};
+          parent[key].push(obj);
+          return obj;
+        };
+
+        const parseValue = (raw) => {
+          const v = raw.trim();
+          if (v === "true") return true;
+          if (v === "false") return false;
+          if (/^[-+]?\d+(\.\d+)?$/.test(v)) return Number(v);
+
+          if (v.startsWith("[") && v.endsWith("]")){
+            const inside = v.slice(1,-1).trim();
+            if (!inside) return [];
+            const parts = [];
+            let cur = "";
+            let inStr = false;
+            let esc = false;
+            for (let i=0;i<inside.length;i++){
+              const ch = inside[i];
+              if (esc){ cur += ch; esc = false; continue; }
+              if (ch === "\\"){ cur += ch; esc = true; continue; }
+              if (ch === '"'){ inStr = !inStr; cur += ch; continue; }
+              if (ch === "," && !inStr){ parts.push(cur.trim()); cur=""; continue; }
+              cur += ch;
+            }
+            if (cur.trim()) parts.push(cur.trim());
+            return parts.map(p => parseValue(p));
+          }
+
+          if (v.startsWith('"') && v.endsWith('"')){
+            return v.slice(1,-1)
+              .replace(/\\n/g, "\n")
+              .replace(/\\"/g, '"')
+              .replace(/\\\\/g, "\\");
+          }
+
+          return v;
+        };
+
+        const lines = tomlText.split(/\r?\n/);
+        for (let line of lines){
+          line = line.trim();
+          if (!line || line.startsWith("#")) continue;
+
+          // Strip inline comments not in quotes
+          {
+            let out = "";
+            let inStr = false;
+            for (let i=0;i<line.length;i++){
+              const ch = line[i];
+              if (ch === '"') inStr = !inStr;
+              if (!inStr && ch === "#") break;
+              out += ch;
+            }
+            line = out.trim();
+            if (!line) continue;
+          }
+
+          if (line.startsWith("[[") && line.endsWith("]]")){
+            const name = line.slice(2,-2).trim();
+            ctxPath = name.split(".").map(s => s.trim()).filter(Boolean);
+            ctx = ensureArrayTable(ctxPath);
+            continue;
+          }
+
+          if (line.startsWith("[") && line.endsWith("]")){
+            const name = line.slice(1,-1).trim();
+            ctxPath = name.split(".").map(s => s.trim()).filter(Boolean);
+            ctx = ensurePath(ctxPath);
+            continue;
+          }
+
+          const eq = line.indexOf("=");
+          if (eq === -1) continue;
+          const key = line.slice(0, eq).trim();
+          const rawVal = line.slice(eq + 1).trim();
+          ctx[key] = parseValue(rawVal);
+        }
+
+        return root;
+      }
+
+      async function loadConfig(){
+        const res = await fetch("./config.toml", { cache: "no-store" });
+        if (!res.ok) throw new Error("Failed to load config.toml");
+        const text = await res.text();
+        return parseToml(text);
+      }
+
+      function t(key){
+        const pack = state.config?.params?.i18n?.[state.lang] || {};
+        return safeText(pack[key] ?? key);
+      }
+
+      function productName(p){
+        return state.lang === "ar" ? safeText(p.name_ar || p.name_en) : safeText(p.name_en || p.name_ar);
+      }
+
+      function productDesc(p){
+        return state.lang === "ar" ? safeText(p.description_ar || p.description_en) : safeText(p.description_en || p.description_ar);
+      }
+
+      function loadCart(){
+        try{
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return {};
+          const parsed = JSON.parse(raw);
+          if (!parsed || typeof parsed !== "object") return {};
+          return parsed;
+        }catch{return {};}
+      }
+
+      function saveCart(){
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.cart));
+        updateCartCount();
+      }
+
+      function cartItemCount(){
+        let n = 0;
+        for (const id of Object.keys(state.cart)) n += (state.cart[id]?.qty || 0);
+        return n;
+      }
+
+      function updateCartCount(){
+        el("cartCount").textContent = String(cartItemCount());
+      }
+
+      function normalizeCart(){
+        for (const id of Object.keys(state.cart)){
+          const it = state.cart[id];
+          if (!it || typeof it !== "object" || !Number.isFinite(it.qty) || it.qty <= 0){
+            delete state.cart[id];
+          } else {
+            it.note = safeText(it.note || "");
+          }
+        }
+      }
+
+      function addToCart(productId){
+        if (!state.cart[productId]) state.cart[productId] = { qty: 0, note: "" };
+        state.cart[productId].qty += 1;
+        saveCart();
+        renderCartDrawer();
+        renderReview();
+      }
+
+      function setQty(productId, qty){
+        if (!state.cart[productId]) state.cart[productId] = { qty: 0, note: "" };
+        state.cart[productId].qty = Math.max(0, qty);
+        if (state.cart[productId].qty === 0) delete state.cart[productId];
+        saveCart();
+        renderCartDrawer();
+        renderReview();
+      }
+
+      function setNote(productId, note){
+        if (!state.cart[productId]) state.cart[productId] = { qty: 1, note: "" };
+        state.cart[productId].note = safeText(note);
+        saveCart();
+        renderReview();
+      }
+
+      function openDrawer(){
+        el("drawerBackdrop").classList.add("show");
+        el("drawer").classList.add("show");
+        renderCartDrawer();
+      }
+
+      function closeDrawer(){
+        el("drawerBackdrop").classList.remove("show");
+        el("drawer").classList.remove("show");
+      }
+
+      function showSection(name){
+        const map = { landing: "sectionLanding", catalog: "sectionCatalog", review: "sectionReview" };
+        for (const k of Object.keys(map)) el(map[k]).classList.toggle("active", k === name);
+        closeDrawer();
+      }
+
+      function renderCategorySeg(){
+        const seg = el("categorySeg");
+        seg.innerHTML = "";
+
+        const categories = new Set(["All"]);
+        for (const p of state.config.params.products) categories.add(safeText(p.category));
+
+        const list = Array.from(categories);
+        const preferred = ["All", "Diagnostic", "Restorative", "Sterilization", "Photography"];
+        list.sort((a,b) => {
+          const ia = preferred.indexOf(a);
+          const ib = preferred.indexOf(b);
+          if (ia !== -1 || ib !== -1) return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+          return a.localeCompare(b);
+        });
+
+        for (const cat of list){
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.textContent = (cat === "All") ? t("category_all") : cat;
+          btn.setAttribute("role", "tab");
+          btn.setAttribute("aria-selected", String(state.category === cat));
+          btn.addEventListener("click", () => {
+            state.category = cat;
+            renderCategorySeg();
+            renderProducts();
+          });
+          seg.appendChild(btn);
+        }
+      }
+
+      function renderProducts(){
+        const grid = el("productGrid");
+        grid.innerHTML = "";
+
+        const q = state.search.trim().toLowerCase();
+
+        const items = state.config.params.products
+          .filter(p => {
+            const catOk = state.category === "All" || safeText(p.category) === state.category;
+            if (!catOk) return false;
+            if (!q) return true;
+            const hay = (productName(p) + " " + productDesc(p) + " " + safeText(p.category)).toLowerCase();
+            return hay.includes(q);
+          });
+
+        for (const p of items){
+          const card = document.createElement("div");
+          card.className = "card";
+
+          const img = document.createElement("img");
+          img.alt = productName(p);
+          img.src = safeText(p.image);
+          card.appendChild(img);
+
+          const body = document.createElement("div");
+          body.className = "card-body";
+
+          const title = document.createElement("div");
+          title.className = "card-title";
+          title.textContent = productName(p);
+
+          const desc = document.createElement("div");
+          desc.className = "card-desc";
+          desc.textContent = productDesc(p);
+
+          const foot = document.createElement("div");
+          foot.className = "card-foot";
+
+          const tag = document.createElement("div");
+          tag.className = "tag";
+          tag.textContent = safeText(p.category);
+
+          const btn = document.createElement("button");
+          btn.className = "btn btn-primary";
+          btn.type = "button";
+          btn.textContent = t("add_to_order");
+          btn.addEventListener("click", () => {
+            addToCart(safeText(p.id));
+            btn.textContent = t("added");
+            setTimeout(() => { btn.textContent = t("add_to_order"); }, 850);
+          });
+
+          foot.appendChild(tag);
+          foot.appendChild(btn);
+
+          body.appendChild(title);
+          body.appendChild(desc);
+          body.appendChild(foot);
+
+          card.appendChild(body);
+          grid.appendChild(card);
+        }
+
+        el("catalogSubtitle").textContent = items.length ? "" : (state.lang === "ar" ? "لا توجد نتائج." : "No results.");
+      }
+
+      function renderCartDrawer(){
+        const body = el("cartBody");
+        body.innerHTML = "";
+
+        normalizeCart();
+        const ids = Object.keys(state.cart);
+
+        if (!ids.length){
+          const empty = document.createElement("div");
+          empty.className = "muted";
+          empty.textContent = t("cart_empty");
+          body.appendChild(empty);
+          return;
+        }
+
+        for (const id of ids){
+          const p = state.productsById.get(id);
+          if (!p) continue;
+          const it = state.cart[id];
+
+          const wrap = document.createElement("div");
+          wrap.className = "cart-item";
+
+          const img = document.createElement("img");
+          img.alt = productName(p);
+          img.src = safeText(p.image);
+
+          const right = document.createElement("div");
+
+          const row1 = document.createElement("div");
+          row1.className = "cart-row";
+
+          const name = document.createElement("div");
+          name.style.fontWeight = "950";
+          name.textContent = productName(p);
+
+          const remove = document.createElement("button");
+          remove.className = "icon-btn";
+          remove.type = "button";
+          remove.textContent = t("remove");
+          remove.addEventListener("click", () => setQty(id, 0));
+
+          row1.appendChild(name);
+          row1.appendChild(remove);
+
+          const row2 = document.createElement("div");
+          row2.className = "cart-row";
+
+          const qty = document.createElement("div");
+          qty.className = "qty-control";
+
+          const minus = document.createElement("button");
+          minus.type = "button";
+          minus.textContent = "−";
+          minus.addEventListener("click", () => setQty(id, (it.qty || 0) - 1));
+
+          const qv = document.createElement("div");
+          qv.className = "qty";
+          qv.textContent = String(it.qty || 0);
+
+          const plus = document.createElement("button");
+          plus.type = "button";
+          plus.textContent = "+";
+          plus.addEventListener("click", () => setQty(id, (it.qty || 0) + 1));
+
+          const qtyLabel = document.createElement("div");
+          qtyLabel.className = "muted";
+          qtyLabel.textContent = t("qty") + ":";
+
+          qty.appendChild(minus);
+          qty.appendChild(qv);
+          qty.appendChild(plus);
+
+          row2.appendChild(qtyLabel);
+          row2.appendChild(qty);
+
+          const noteLabel = document.createElement("div");
+          noteLabel.className = "muted";
+          noteLabel.style.marginTop = "10px";
+          noteLabel.textContent = t("note") + ":";
+
+          const ta = document.createElement("textarea");
+          ta.value = safeText(it.note);
+          ta.placeholder = state.lang === "ar" ? "مثال: اللون/المقاس/تفاصيل مطلوبة" : "Example: shade/size/required details";
+          ta.addEventListener("input", () => setNote(id, ta.value));
+
+          right.appendChild(row1);
+          right.appendChild(row2);
+          right.appendChild(noteLabel);
+          right.appendChild(ta);
+
+          wrap.appendChild(img);
+          wrap.appendChild(right);
+          body.appendChild(wrap);
+        }
+      }
+
+      function renderReview(){
+        const list = el("reviewList");
+        list.innerHTML = "";
+
+        normalizeCart();
+        const ids = Object.keys(state.cart);
+
+        if (!ids.length){
+          const empty = document.createElement("div");
+          empty.className = "muted";
+          empty.textContent = t("cart_empty");
+          list.appendChild(empty);
+          el("reviewCount").textContent = "";
+          el("btnSendWhatsApp").disabled = true;
+          return;
+        }
+
+        let lines = 0;
+        for (const id of ids){
+          const p = state.productsById.get(id);
+          if (!p) continue;
+          const it = state.cart[id];
+          const row = document.createElement("div");
+          row.className = "review-item";
+
+          const left = document.createElement("div");
+          left.className = "left";
+
+          const name = document.createElement("div");
+          name.className = "name";
+          name.textContent = productName(p);
+
+          const sub = document.createElement("div");
+          sub.className = "sub";
+          const note = safeText(it.note).trim();
+          sub.textContent = (state.lang === "ar")
+            ? ("الكمية: " + it.qty + (note ? (" | ملاحظة: " + note) : ""))
+            : ("Qty: " + it.qty + (note ? (" | Note: " + note) : ""));
+
+          left.appendChild(name);
+          left.appendChild(sub);
+
+          const right = document.createElement("div");
+          right.style.display = "flex";
+          right.style.gap = "8px";
+
+          const btnEdit = document.createElement("button");
+          btnEdit.className = "icon-btn";
+          btnEdit.type = "button";
+          btnEdit.textContent = state.lang === "ar" ? "تعديل" : "Edit";
+          btnEdit.addEventListener("click", openDrawer);
+
+          right.appendChild(btnEdit);
+
+          row.appendChild(left);
+          row.appendChild(right);
+          list.appendChild(row);
+          lines += 1;
+        }
+
+        el("reviewCount").textContent = state.lang === "ar" ? ("عدد المنتجات: " + lines) : ("Items: " + lines);
+        el("btnSendWhatsApp").disabled = false;
+      }
+
+      function buildWhatsAppMessage(){
+        const msgCfg = state.config?.params?.message || {};
+
+        const greeting = state.lang === "ar" ? safeText(msgCfg.greeting_ar) : safeText(msgCfg.greeting_en);
+        const intro = state.lang === "ar" ? safeText(msgCfg.intro_ar) : safeText(msgCfg.intro_en);
+        const footer = state.lang === "ar" ? safeText(msgCfg.footer_ar) : safeText(msgCfg.footer_en);
+
+        const clinic = safeText(el("clinicName").value).trim();
+
+        const parts = [];
+        if (greeting) parts.push(greeting);
+        if (clinic){
+          parts.push(state.lang === "ar" ? ("اسم العيادة: " + clinic) : ("Clinic: " + clinic));
+        }
+        if (intro) parts.push(intro);
+
+        normalizeCart();
+        const ids = Object.keys(state.cart);
+        for (const id of ids){
+          const p = state.productsById.get(id);
+          if (!p) continue;
+          const it = state.cart[id];
+          const note = safeText(it.note).trim();
+          const line = "- " + productName(p) + " x" + it.qty + (note ? (state.lang === "ar" ? (" | ملاحظة: " + note) : (" | Note: " + note)) : "");
+          parts.push(line);
+        }
+
+        if (footer) parts.push(footer);
+
+        return parts.join("\n");
+      }
+
+      function openWhatsApp(){
+        const phone = safeText(state.config?.params?.whatsapp_phone).replace(/\D/g, "");
+        const text = buildWhatsAppMessage();
+        const url = "https://wa.me/" + encodeURIComponent(phone) + "?text=" + encodeURIComponent(text);
+        window.open(url, "_blank", "noopener,noreferrer");
+      }
+
+      function applyLanguage(){
+        document.documentElement.lang = state.lang;
+        document.body.classList.toggle("rtl", state.lang === "ar");
+
+        el("langEn").setAttribute("aria-pressed", String(state.lang === "en"));
+        el("langAr").setAttribute("aria-pressed", String(state.lang === "ar"));
+
+        el("brandText").textContent = t("brand");
+        document.title = t("brand");
+
+        el("headline").textContent = t("headline");
+        el("vpFast").textContent = t("value_fast");
+        el("vpFocus").textContent = t("value_focus");
+        el("vpNoAccount").textContent = t("value_no_account");
+
+        el("btnStart").textContent = t("cta_start");
+        el("btnGoReview").textContent = t("nav_review");
+
+        el("navCatalog").textContent = t("nav_catalog");
+        el("navReview").textContent = t("nav_review");
+
+        el("catalogTitle").textContent = t("section_catalog_title");
+        el("searchInput").placeholder = t("search_placeholder");
+
+        el("cartTitle").textContent = t("cart_title");
+        el("btnContinue").textContent = t("continue_shopping");
+        el("btnGoToReview").textContent = t("nav_review");
+        el("cartFootHint").textContent = state.lang === "ar" ? "أضف ملاحظة لكل منتج عند الحاجة." : "Add a note per product if needed.";
+
+        el("reviewTitle").textContent = t("review_title");
+        el("reviewHint").textContent = t("review_hint");
+        el("btnBackToCatalog").textContent = t("back");
+        el("clinicLabel").textContent = t("clinic_name_label");
+        el("clinicName").placeholder = state.lang === "ar" ? "مثال: عيادة النور" : "Example: Noor Dental Clinic";
+        el("btnSendWhatsApp").textContent = t("send_whatsapp");
+
+        el("landingHint").textContent = state.lang === "ar"
+          ? "لا يلزم إنشاء حساب. سيتم إرسال الطلب عبر واتساب في الخطوة الأخيرة."
+          : "No account needed. Your order will be sent via WhatsApp in the final step.";
+
+        el("flowTitle").textContent = state.lang === "ar" ? "الخطوات" : "Workflow";
+        el("flowText").textContent = state.lang === "ar"
+          ? "تصفح حسب الفئة، أضف المنتجات، أضف ملاحظة لكل منتج، ثم أرسل الطلب عبر واتساب."
+          : "Browse by category, add items, add a note per product, then send the order via WhatsApp.";
+
+        renderCategorySeg();
+        renderProducts();
+        renderCartDrawer();
+        renderReview();
+      }
+
+      function setLanguage(lang){
+        state.lang = (lang === "ar") ? "ar" : "en";
+        localStorage.setItem(LANG_KEY, state.lang);
+        applyLanguage();
+      }
+
+      function bindEvents(){
+        el("btnStart").addEventListener("click", () => showSection("catalog"));
+        el("btnGoReview").addEventListener("click", () => { showSection("review"); renderReview(); });
+
+        el("navCatalog").addEventListener("click", () => showSection("catalog"));
+        el("navReview").addEventListener("click", () => { showSection("review"); renderReview(); });
+
+        el("btnBackToCatalog").addEventListener("click", () => showSection("catalog"));
+
+        el("cartFab").addEventListener("click", openDrawer);
+        el("btnCloseDrawer").addEventListener("click", closeDrawer);
+        el("drawerBackdrop").addEventListener("click", closeDrawer);
+
+        el("btnContinue").addEventListener("click", () => { showSection("catalog"); closeDrawer(); });
+        el("btnGoToReview").addEventListener("click", () => { showSection("review"); renderReview(); });
+
+        el("searchInput").addEventListener("input", () => {
+          state.search = el("searchInput").value;
+          renderProducts();
+        });
+
+        el("langEn").addEventListener("click", () => setLanguage("en"));
+        el("langAr").addEventListener("click", () => setLanguage("ar"));
+
+        el("clinicName").addEventListener("input", () => {
+          localStorage.setItem(CLINIC_KEY, el("clinicName").value);
+        });
+
+        el("btnSendWhatsApp").addEventListener("click", () => {
+          // IMPORTANT: No confirmation page or success message.
+          openWhatsApp();
+        });
+      }
+
+      async function init(){
+        state.cart = loadCart();
+        normalizeCart();
+
+        const savedLang = safeText(localStorage.getItem(LANG_KEY)).toLowerCase();
+        const savedClinic = safeText(localStorage.getItem(CLINIC_KEY));
+        if (savedClinic) el("clinicName").value = savedClinic;
+
+        state.config = await loadConfig();
+        if (!state.config.params) state.config.params = {};
+        if (!Array.isArray(state.config.params.products)) state.config.params.products = [];
+
+        const defaultLang = safeText(state.config.params.default_language || "en");
+        state.lang = (savedLang === "ar" || savedLang === "en") ? savedLang : (defaultLang === "ar" ? "ar" : "en");
+
+        state.productsById = new Map();
+        for (const p of state.config.params.products) state.productsById.set(safeText(p.id), p);
+
+        bindEvents();
+        saveCart();
+        applyLanguage();
+      }
+
+      init().catch(err => {
+        const app = el("app");
+        app.innerHTML = "<div class=\"review-panel\"><div style=\"font-weight:950\">Failed to load config.toml</div><div class=\"muted\" style=\"margin-top:8px\">" + safeText(err?.message || err) + "</div></div>";
+      });
+    })();
+  </script>
+</body>
+</html>
